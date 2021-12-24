@@ -29,3 +29,12 @@ void MainWindow::on_pushButton_clicked()
     ui->label->setText(("clicked " + std::to_string( count ) + "!").c_str());
 }
 
+
+void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
+{
+    int row = index.row();
+    int col = index.column();
+    ui->label->setText(("double clicked row " + std::to_string( row + 1 ) +
+                        ", col " + std::to_string( col + 1 ) + "!").c_str());
+}
+
