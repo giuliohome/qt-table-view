@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "mymodel.h"
 #include <QDebug>
+#include <QColorDialog>
 
 // from https://forum.qt.io/topic/17971/qtableview-doesn-t-show-any-data/3
 // The problem is that you are creating the model on the stack. As soon as pModel goes out of scope, it is destroyed again.
@@ -36,5 +37,18 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
     int col = index.column();
     ui->label->setText(("double clicked row " + std::to_string( row + 1 ) +
                         ", col " + std::to_string( col + 1 ) + "!").c_str());
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QColor color = QColorDialog::getColor();
+    if (color.isValid()) {
+        QPalette palette = ui->label_2->palette();
+        palette.setColor(QPalette::WindowText, color);
+        ui->label_2->setAutoFillBackground(true);
+        ui->label_2->setPalette(palette);
+        myModel->setColor(color);
+    }
 }
 

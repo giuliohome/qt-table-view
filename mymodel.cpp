@@ -9,6 +9,7 @@ MyModel::MyModel(QObject *parent)
 }
 
 int myRows = 2;
+QColor myColor = Qt::red;
 
 void MyModel::setCount(int i)
 {
@@ -17,6 +18,11 @@ void MyModel::setCount(int i)
   QModelIndex bottomRight = index(i-1,2);
   emit dataChanged(topLeft, bottomRight);
   emit layoutChanged();
+}
+
+void MyModel::setColor(QColor color) {
+    myColor = color;
+    emit layoutChanged();
 }
 
 int MyModel::rowCount(const QModelIndex & /*parent*/) const
@@ -56,7 +62,7 @@ QVariant MyModel::data(const QModelIndex &index, int role) const
         break;
     case Qt::BackgroundRole:
         if (row % 2 == 1 && col == 2)  //change background only for cell(1,2)
-            return QBrush(Qt::red);
+            return QBrush(myColor);
         break;
     case Qt::TextAlignmentRole:
         if (row % 2 == 1 && col == 1) //change text alignment only for cell(1,1)
